@@ -1,0 +1,21 @@
+<!-- payments/templates/payments/initiate_payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Initiate Payment</title>
+</head>
+<body>
+    <h1>Initiate Payment</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" id="phone_number" name="phone_number">
+        <br>
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" name="amount">
+        <br>
+        <button type="submit">Pay</button>
+    </form>
+</body>
+</html>
