@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,15 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q22w*ursg=fe28c7s6-_(nejb&gfqp^%4r08-ln3#4rq20&a5_'
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-     '127.0.0.1',
+    '127.0.0.1',
     'localhost',
-    'ca29-2c0f-fe38-240c-42b6-b5c2-d85c-fa1d-a8a7.ngrok-free.app'
+    'ormikael.pythonanywhere.com'
 ]
 
 
@@ -44,12 +49,15 @@ INSTALLED_APPS = [
     'mpesa_client'
 ]
 
-#  M-Pesa API Credentials
-MPESA_CONSUMER_KEY = '7CTscmGG08DG0RVVXL7Wv4ikuwCAstOqBElwn6Gi4wzjshkS' #'your_consumer_key'
-MPESA_CONSUMER_SECRET = 'EecEpGuZRtwTkoVGbG5oq65FiBYVdcXaRsUntiufp7Ikgz5BclI2KglvSenx7JLY' #'your_consumer_secret'
-MPESA_SHORTCODE = '174379' #'your_shortcode'
-MPESA_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919' #'your_passkey'
-SAFARICOM_LIPA_NA_MPESA_ONLINE_URL ='' 
+
+# M-Pesa settings template
+MPESA_CONSUMER_KEY = os.getenv('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = os.getenv('MPESA_CONSUMER_SECRET')
+MPESA_SHORTCODE = os.getenv('MPESA_SHORTCODE')
+MPESA_PASSKEY = os.getenv('MPESA_PASSKEY')
+MPESA_ENVIRONMENT = os.getenv('MPESA_ENVIRONMENT')
+SAFARICOM_LIPA_NA_MPESA_ONLINE_URL = os.getenv('SAFARICOM_LIPA_NA_MPESA_ONLINE_URL')
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -92,6 +100,21 @@ DATABASES = {
     }
 }
 
+
+# connection to production db
+# Example database configuration using environment variables o impliment with live database
+
+# Database settings
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DB_NAME'),
+#         'USER': os.getenv('DB_USER'),
+#         'PASSWORD': os.getenv('DB_PASSWORD'),
+#         'HOST': os.getenv('DB_HOST'),
+#         'PORT': os.getenv('DB_PORT'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
