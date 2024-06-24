@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 from dotenv import load_dotenv
+
 
 # Load .env file
 load_dotenv()
@@ -32,14 +34,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG =os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = [
-    'rycha-pay.onrender.com',
-    '127.0.0.1',
-    'localhost',
-    'ormikael.pythonanywhere.com'
-]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(" ")
 
 
 # Application definition
@@ -104,6 +101,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+database_url = os.getenv('DATABASE_URL')
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 
 # connection to production db

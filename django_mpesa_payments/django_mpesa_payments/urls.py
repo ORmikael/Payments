@@ -21,7 +21,6 @@ from mpesa_client.views import pay,confirm_payment  # Adjust the import based on
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mpesa_client/', include('mpesa_client.urls')),
     path('', pay, name='pay'), #  the root path
     path('payments/confirmation/', confirm_payment, name='confirm_payment'),
 
