@@ -35,10 +35,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'rycha-pay.onrender.com',
     '127.0.0.1',
     'localhost',
-    'ormikael.pythonanywhere.com',
-    'rycha-pay.onrender.com'
+    'ormikael.pythonanywhere.com'
 ]
 
 
