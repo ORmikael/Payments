@@ -37,8 +37,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'ormikael.pythonanywhere.com'
-    'rycha-pay.onrender.com'
+    'ormikael.pythonanywhere.com',
+    'rycha-pay.onrender.c'
 ]
 
 
