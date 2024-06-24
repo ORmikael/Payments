@@ -91,13 +91,14 @@ def payment_confirmation(request):
     return HttpResponse("Only POST method is allowed", status=405)
 
 # view to render the payment confirmation page 
-@csrf_exempt
+# @csrf_exempt
 def confirm_payment(request):
-    # Get the latest transaction information
-    latest_transaction = MpesaTransaction.objects.latest('transaction_date')
+#     # Get the latest transaction information
+#     latest_transaction = MpesaTransaction.objects.latest('transaction_date')
     
-    context = {
-        'transaction': latest_transaction
-    }
+#     context = {
+#         'transaction': latest_transaction
+#     }
     
-    return render(request, 'confirm_payment.html', context)
+#     return render(request, 'confirm_payment.html', context)
+    return
