@@ -35,7 +35,7 @@ def lipa_na_mpesa_online(phone_number, amount):
         "PartyA": phone_number,
         "PartyB": settings.MPESA_SHORTCODE,
         "PhoneNumber": phone_number,
-        "CallBackURL": "https://ca29-2c0f-fe38-240c-42b6-b5c2-d85c-fa1d-a8a7.ngrok-free.app/payments/confirmation/",
+        "CallBackURL": "https://rycha-pay.onrender.com//payments/confirmation/",
         "AccountReference": "Test123",
         "TransactionDesc": "Payment for goods"
     }
