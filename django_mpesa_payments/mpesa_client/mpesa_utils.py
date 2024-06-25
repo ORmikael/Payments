@@ -4,14 +4,44 @@ from requests.auth import HTTPBasicAuth
 from django.conf import settings
 import base64
 from datetime import datetime
+import logging
 
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 def get_mpesa_token():
     url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
-    response = requests.get(url, auth=HTTPBasicAuth(settings.MPESA_CONSUMER_KEY, settings.MPESA_CONSUMER_SECRET))
-    token = response.json()['access_token']
-    return token
+    
+    try:
+        response = requests.get(url, auth=HTTPBasicAuth(settings.MPESA_CONSUMER_KEY, settings.MPESA_CONSUMER_SECRET))
 
+        # Log status code and headers
+        logger.debug(f"Response status code: {response.status_code}")
+        logger.debug(f"Response headers: {response.headers}")
+
+        # Log response content
+        logger.debug(f"Response content: {response.text}")
+
+        # Check if the response contains valid JSON
+        try:
+            token = response.json().get('access_token')
+            if token:
+                return token
+            else:
+                logger.error("Access token not found in the response.")
+                raise ValueError("Access token not found in the response.")
+        except ValueError as e:
+            logger.error(f"JSON decoding error: {e}")
+            raise
+
+    except requests.RequestException as e:
+        logger.error(f"Request failed: {e}")
+        raise
+
+    except Exception as e:
+        logger.error(f"An unexpected error occurred: {e}")
+        raise
 
 
 
