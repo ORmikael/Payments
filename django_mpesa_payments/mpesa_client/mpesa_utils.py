@@ -5,13 +5,14 @@ from django.conf import settings
 import base64
 from datetime import datetime
 import logging
+import os
 
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 def get_mpesa_token():
-    url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+    url = os.getenv("SAFARICOM_GET_ACCES_TOKEN_URL")
     
     try:
         response = requests.get(url, auth=HTTPBasicAuth(settings.MPESA_CONSUMER_KEY, settings.MPESA_CONSUMER_SECRET))
@@ -47,7 +48,7 @@ def get_mpesa_token():
 
 def lipa_na_mpesa_online(phone_number, amount):
     access_token = get_mpesa_token()
-    api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+    api_url =  os.getenv("SAFARICOM_LIPA_NA_MPESA_ONLINE_URL")
     headers = {
         "Authorization": f"Bearer {access_token}"
     }
@@ -66,7 +67,7 @@ def lipa_na_mpesa_online(phone_number, amount):
         "PartyB": settings.MPESA_SHORTCODE,
         "PhoneNumber": phone_number,
         "CallBackURL": "https://rycha-pay.onrender.com//payments/confirmation/",
-        "AccountReference": "Test123",
+        "AccountReference": "rycha goods",
         "TransactionDesc": "Payment for goods"
     }
 
