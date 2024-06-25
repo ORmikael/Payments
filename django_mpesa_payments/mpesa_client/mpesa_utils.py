@@ -14,6 +14,9 @@ logger = logging.getLogger(__name__)
 def get_mpesa_token():
     url = os.getenv("SAFARICOM_GET_ACCES_TOKEN_URL")
     
+    # Log the URL to ensure it is being read correctly
+    logger.debug(f"Requesting token from URL: {url}")
+
     try:
         response = requests.get(url, auth=HTTPBasicAuth(settings.MPESA_CONSUMER_KEY, settings.MPESA_CONSUMER_SECRET))
 
